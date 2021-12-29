@@ -27,8 +27,6 @@ st.caption('sorry, goodreads doesn\'t allow new API developers so I need this fi
 
 if uploaded_file:
     df = pd.read_csv(uploaded_file)
-    st.dataframe(df)
-
     shelves, excl_shelves = get_unique_shelves(df)
     shelf = st.selectbox('From which shelf do you want to pick a book ?', shelves)
 
