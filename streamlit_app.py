@@ -34,7 +34,6 @@ else:
 
     selected_books = get_books_from_shelf(df, shelf, excl_shelves)
     random_row = selected_books.sample().iloc[0]
-    st.dataframe(selected_books)
 
     button_res = st.button("Pick the book!")
     if button_res:
