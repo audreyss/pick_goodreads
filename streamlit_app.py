@@ -25,7 +25,9 @@ uploaded_file = st.file_uploader('Upload the export file from Goodreads.', type=
                                  help='Select your export library file')
 st.caption('sorry, goodreads doesn\'t allow new API developers so I need this file :(')
 
-if uploaded_file:
+if not uploaded_file:
+    st.write("Export file not found")
+else:
     df = pd.read_csv(uploaded_file)
     shelves, excl_shelves = get_unique_shelves(df)
     shelf = st.selectbox('From which shelf do you want to pick a book ?', shelves)
@@ -33,6 +35,8 @@ if uploaded_file:
     selected_books = get_books_from_shelf(df, shelf, excl_shelves)
     random_row = selected_books.sample().iloc[0]
 
-    st.write("The winning book from the shelf %s is:" % shelf)
-    st.write("%s by %s" % (random_row['Title'], random_row['Author']))
-    st.balloons()
+    button_res = st.button("Pick the book!")
+    if button_res:
+        st.write("The winning book from the shelf %s is:" % shelf)
+        st.write("%s by %s" % (random_row['Title'], random_row['Author']))
+        st.balloons()
