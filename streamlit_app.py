@@ -34,9 +34,17 @@ else:
 
     selected_books = get_books_from_shelf(df, shelf, excl_shelves)
     random_row = selected_books.sample().iloc[0]
+    st.dataframe(selected_books)
 
     button_res = st.button("Pick the book!")
     if button_res:
-        st.write("The winning book from the shelf %s is:" % shelf)
-        st.write("%s by %s" % (random_row['Title'], random_row['Author']))
+        col1, col2 = st.columns(2)
+
+        with col1:
+            link = "https://covers.openlibrary.org/b/%s/%s-%s.jpg" % ('isbn', random_row['ISBN'][2:-1], 'L')
+            st.image(link)
+
+        with col2:
+            st.write("The winning book from the shelf %s is:" % shelf)
+            st.write("%s by %s" % (random_row['Title'], random_row['Author']))
         st.balloons()
